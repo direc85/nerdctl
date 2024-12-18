@@ -37,7 +37,7 @@ Requires:       slirp4netns >= 0.4.0
 nerdctl is a Docker-compatible CLI for containerd.
 
 %prep
-%autosetup -a1
+%autosetup -a1 -n %{name}-%{version}/%{name}
 
 %build
 CGO_ENABLED=0
