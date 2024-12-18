@@ -12,20 +12,13 @@
 # license that conforms to the Open Source Definition (Version 1.9)
 # published by the Open Source Initiative.
 
-# Please submit bugfixes or comments via https://bugs.opensuse.org/
-#
 
-
-%global provider        github
-%global provider_tld    com
-%global project         containerd
-%global repo            nerdctl
-%global provider_prefix %{provider}.%{provider_tld}/%{project}/%{repo}
+%global provider_prefix github.com/containerd/nerdctl
 %global import_path     %{provider_prefix}
 
 Name:           nerdctl
 Version:        1.7.7
-Release:        0
+Release:        1
 Summary:        Docker-compatible CLI for containerd
 License:        Apache-2.0
 URL:            https://github.com/containerd/nerdctl
@@ -38,13 +31,12 @@ Requires:       containerd
 Requires:       iptables
 Requires:       rootlesskit >= 1.0.0
 Requires:       slirp4netns >= 0.4.0
-BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
 nerdctl is a Docker-compatible CLI for containerd.
 
 %prep
-%setup -qa1
+%autosetup -a1
 
 %build
 CGO_ENABLED=0
