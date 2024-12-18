@@ -24,7 +24,8 @@ License:        Apache-2.0
 URL:            https://github.com/containerd/nerdctl
 Source:         %{name}-%{version}.tar.xz
 Source1:        vendor.tar.xz
-BuildRequires:  golang(API) >= 1.21
+#BuildRequires:  golang(API) >= 1.21
+BuildRequires:  golang(API) >= 1.23
 Requires:       buildkit
 Requires:       cni-plugins
 Requires:       containerd
