@@ -17,20 +17,20 @@
 %global import_path     %{provider_prefix}
 
 Name:           nerdctl
-Version:        1.7.7
+Version:        2.0.3
 Release:        1
 Summary:        Docker-compatible CLI for containerd
 License:        Apache-2.0
 URL:            https://github.com/containerd/nerdctl
 Source:         %{name}-%{version}.tar.gz
 Source1:        vendor.tar.gz
-#BuildRequires:  golang(API) >= 1.21
-BuildRequires:  golang(API) >= 1.23
-Requires:       buildkit
+#BuildRequires:  golang(API) >= 1.22
+BuildRequires:  golang(API) >= 1.24
+Requires:       buildkit >= 0.13.0
 Requires:       cni-plugins
 Requires:       containerd
 Requires:       iptables
-Requires:       rootlesskit >= 1.0.0
+Requires:       rootlesskit >= 2.0.0
 Requires:       slirp4netns >= 0.4.0
 
 %description
@@ -41,7 +41,14 @@ nerdctl is a Docker-compatible CLI for containerd.
 
 %build
 CGO_ENABLED=0
-go build -mod=vendor -buildmode=pie -o _output/nerdctl %{provider_prefix}/cmd/nerdctl
+
+go build \
+    -mod=vendor \
+    -buildmode=pie \
+    -ldflags "-X %{provider_prefix}/v2/pkg/version.Version=%{version} \
+              -X %{provider_prefix}/v2/pkg/version.Revision=unknown" \
+    -o _output/nerdctl \
+    %{provider_prefix}/v2/cmd/nerdctl
 
 %install
 mkdir -p %{buildroot}%{_bindir}/
